@@ -4,7 +4,7 @@
 // 3. Make it interactive
 
 import { cart, addToCart } from "../data/cart.js";
-
+import { products } from "../data/products.js";
 let productsHTML = "";
 
 products.forEach((product) => {
@@ -28,7 +28,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            $${product.priceCents / 100}
+            $${(product.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
