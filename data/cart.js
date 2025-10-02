@@ -1,3 +1,5 @@
+const removeTimeout = {};
+
 export const cart = [];
 
 export function addToCart(productId) {
@@ -19,4 +21,12 @@ export function addToCart(productId) {
       quantity: selectedQuantity,
     });
   }
+
+  const added = document.querySelector(`.js-added-cart-${productId}`);
+  added.classList.add("added");
+  clearTimeout(removeTimeout[productId]);
+  
+  removeTimeout[productId] = setTimeout(() => {
+    added.classList.remove("added");
+  }, 2000);
 }
