@@ -3,7 +3,7 @@
 // 2. Generate the HTML
 // 3. Make it interactive
 
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formartCurrency } from "./utils/money.js";
 
@@ -64,22 +64,20 @@ products.forEach((product) => {
     `;
 });
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
-if (cart.length === 0) {
-  document.querySelector(".js-cart-quantity").innerHTML = 0;
-} else {
-  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-  document.querySelector(".js-cart-quantity").innerHTML = totalQuantity;
-}
+
+// other method to run or display the cart quantity
+// if (cart.length === 0) {
+//   document.querySelector(".js-cart-quantity").innerHTML = 0;
+// } else {
+//   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+//   document.querySelector(".js-cart-quantity").innerHTML = totalQuantity;
+// }
 
 function updateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach((item) => {
-    cartQuantity += item.quantity;
-  });
-
-  console.log(cartQuantity);
+  const cartQuantity = calculateCartQuantity();
   document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
 }
+updateCartQuantity();
 
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {

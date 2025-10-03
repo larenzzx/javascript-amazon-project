@@ -1,4 +1,4 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart, calculateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formartCurrency } from "./utils/money.js";
 
@@ -100,13 +100,20 @@ cart.forEach((cartItem) => {
 
 document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
 
-function updateCheckoutQuantity() {
-  const checkoutQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-  document.querySelector(
-    ".js-checkout-quantity"
-  ).innerHTML = `${checkoutQuantity} items`;
+// other method to display checkout quantity
+// function updateCheckoutQuantity() {
+//   const checkoutQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+//   document.querySelector(
+//     ".js-checkout-quantity"
+//   ).innerHTML = `${checkoutQuantity} items`;
+// }
+// updateCheckoutQuantity();
+
+function updateCartQuantity() {
+  const cartQuantity = calculateCartQuantity();
+  document.querySelector(".js-checkout-quantity").innerHTML = `${cartQuantity} items`;
 }
-updateCheckoutQuantity();
+updateCartQuantity();
 
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
@@ -116,6 +123,6 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
       `.js-cart-item-container-${productId}`
     );
     container.remove();
-    updateCheckoutQuantity();
+    updateCartQuantity();
   });
 });
